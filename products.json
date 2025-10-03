@@ -1,0 +1,123 @@
+[
+  {
+    "id": "trcs_speeda",
+    "category": "vaccine",
+    "brand": "TRCS Speeda",
+    "type": "CPRV (Vero cell, Fill/Finish TH)",
+    "im_ml": 0.5,
+    "id_ml": 0.1,
+    "id_sites": 2,
+    "in_thailand": true,
+    "storage": "2–8°C",
+    "shelf": "36 เดือน",
+    "image": "speeda.png"
+  },
+  {
+    "id": "speeda",
+    "category": "vaccine",
+    "brand": "Speeda",
+    "type": "CPRV (Vero cell)",
+    "im_ml": 0.5,
+    "id_ml": 0.1,
+    "id_sites": 2,
+    "in_thailand": true,
+    "storage": "2–8°C",
+    "shelf": "36 เดือน",
+    "image": "speeda.png"
+  },
+  {
+    "id": "verorab",
+    "category": "vaccine",
+    "brand": "Verorab",
+    "type": "PVRV (Vero cell)",
+    "im_ml": 0.5,
+    "id_ml": 0.1,
+    "id_sites": 2,
+    "in_thailand": true,
+    "storage": "2–8°C",
+    "shelf": "36 เดือน",
+    "image": "verorab.png"
+  },
+  {
+    "id": "abhayrab",
+    "category": "vaccine",
+    "brand": "Abhayrab",
+    "type": "PVRV (Vero cell)",
+    "im_ml": 0.5,
+    "id_ml": 0.1,
+    "id_sites": 2,
+    "in_thailand": true,
+    "storage": "2–8°C",
+    "shelf": "36 เดือน",
+    "image": "abhayrab.png"
+  },
+  {
+    "id": "chirorab",
+    "category": "vaccine",
+    "brand": "ChiroRab",
+    "type": "PCECV (Chick embryo)",
+    "im_ml": 1.0,
+    "id_ml": 0.1,
+    "id_sites": 2,
+    "in_thailand": true,
+    "storage": "2–8°C",
+    "shelf": "48 เดือน",
+    "image": "chirorab.png"
+  },
+  {
+    "id": "imovax",
+    "category": "vaccine",
+    "brand": "Imovax/Merieux",
+    "type": "HDCV",
+    "im_ml": 1.0,
+    "id_ml": 0.1,
+    "id_sites": 2,
+    "in_thailand": false,
+    "storage": "2–8°C",
+    "shelf": "36–48 เดือน",
+    "image": "imovax.png"
+  },
+  {
+    "id": "rabipur",
+    "category": "vaccine",
+    "brand": "Rabipur/RabAvert",
+    "type": "PCECV",
+    "im_ml": 1.0,
+    "id_ml": 0.1,
+    "id_sites": 2,
+    "in_thailand": false,
+    "storage": "2–8°C",
+    "shelf": "48 เดือน",
+    "image": "rabipur.png"
+  },
+  {
+    "id": "hrig_trc",
+    "category": "RIG",
+    "kind": "HRIG",
+    "brand": "HRIG สภากาชาด HUMAN ANTIRABIES",
+    "strength": "750 IU/5 mL",
+    "iu_per_ml": 150,
+    "vial_ml": 5,
+    "price": 2261
+  },
+  {
+    "id": "trcs_erig",
+    "category": "RIG",
+    "kind": "ERIG",
+    "brand": "TRCS ERIG",
+    "strength": "400 IU/2 mL",
+    "iu_per_ml": 200,
+    "vial_ml": 2,
+    "price": 333
+  },
+  {
+    "id": "vinrab_erig",
+    "category": "RIG",
+    "kind": "ERIG",
+    "brand": "VINRAB ERIG",
+    "strength": "1000 IU/5 mL",
+    "iu_per_ml": 200,
+    "vial_ml": 5,
+    "price": 696
+  }
+]

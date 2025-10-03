@@ -1,0 +1,13 @@
+{
+  "name": "Rabies Planner • SPEEDA",
+  "short_name": "RabiesPlan",
+  "start_url": ".",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}
