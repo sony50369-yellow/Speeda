@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Rabies Planner • SPEEDA</title>
+<link href="icon.svg" rel="icon"/><link href="icon.png" rel="apple-touch-icon"/><link href="manifest.json" rel="manifest"/>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<style>
+.info-btn{border:1px solid #e5e7eb;background:#f3f4f6;border-radius:8px;padding:2px 8px;font-size:12px;cursor:pointer}
+.inline-help{display:none;margin-top:6px;padding:8px;border:1px dashed #e5e7eb;border-radius:8px;background:#fafafa;font-size:13px}
+.inline-help.show{display:block}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:999}
+.modal.show{display:flex}
+.modal .box{background:#fff;border-radius:12px;max-width:640px;width:92%;padding:14px;border:1px solid #e5e7eb}
+.modal .box h3{margin:0 0 8px}
+.modal .box .close{float:right;border:none;background:#e5e7eb;border-radius:8px;padding:4px 8px;cursor:pointer}
+.credit{margin:20px 0;text-align:center;color:#64748b;font-size:13px}
+</style>
+<meta content="#6C8E8C" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="default" name="apple-mobile-web-app-status-bar-style"/><link href="./favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/><link href="./favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/><style>/* Speeda PWA header */
+.spda-header{position:sticky;top:0;background:#FFFBEF;border-bottom:1px solid #e9e4d6;z-index:9999}
+.spda-wrap{max-width:980px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.spda-logo{width:28px;height:28px;border-radius:8px;display:block}
+.spda-title{font-weight:700;color:#5A6F6D}
+@media (prefers-color-scheme: dark){
+  .spda-header{background:#1b1b1b;border-bottom-color:#333}
+  .spda-title{color:#e7eceb}
+}</style></head><body><div class="spda-header"><div class="spda-wrap"><img alt="Speeda icon" class="spda-logo" src="./icons/icon-192.png"/><div class="spda-title">Rabies Planner • SPEEDA</div></div></div>
+
+<main>
+<section class="card"><h2>ตั้งค่าการฉีด</h2>
+<div class="row">
+<label><input checked="" name="mode" type="radio" value="PEP"/> PEP</label>
+<label><input name="mode" type="radio" value="PrEP"/> PrEP</label>
+<label><input name="mode" type="radio" value="Booster"/> Booster</label>
+</div>
+<div class="row">
+<label>Day 0: <input id="startDate" type="date"/></label>
+<label>Route: <select id="route"><option selected="" value="ID">ID</option><option value="IM">IM</option></select></label>
+<label>วัคซีน: <select id="brand"></select></label>
+</div>
+<div class="row">
+<label>ประวัติวัคซีน: <select id="prev"><option value="never">ไม่เคยครบ 3 เข็ม</option><option value="&gt;=3">เคยครบ ≥3 เข็ม</option></select></label>
+<label>เข็มล่าสุดเมื่อ: <input id="lastDoseDate" type="date"/></label>
+<label><input id="hiRisk" type="checkbox"/><br/>เสี่ยงสูง/ภูมิคุ้มกันบกพร่อง → ID 1 จุด</label><br/>
+<button class="info-btn" id="catExplainBtn" type="button">คำอธิบาย Category</button>
+<div class="inline-help" id="catExplain">
+<b>การแบ่ง Category</b><br/>
+      • <b>I</b>: สัมผัสผ่านผิวหนังปกติ/เลียผิวหนังปกติ → ล้างแผลพอ, <u>ไม่ต้องวัคซีน</u><br/>
+      • <b>II</b>: ผิวหนังถลอก/ข่วนตื้น → <u>วัคซีน</u> (ปกติไม่ต้อง RIG)<br/>
+      • <b>III</b>: แผลลึก/เลือดออก, เลียเยื่อเมือก, กัดศีรษะ/คอ/มือ/นิ้ว/อวัยวะเพศ → <u>วัคซีน + พิจารณา RIG</u>
+</div>
+<div>
+<button class="info-btn" id="riskExplainBtn" type="button">คำอธิบาย “เสี่ยงสูง/ภูมิคุ้มกันบกพร่อง”</button>
+<div class="inline-help" id="riskExplain">
+<ul>
+<li>ได้ยากดภูมิ/สเตียรอยด์ขนาดสูง/เคมีบำบัด</li>
+<li>HIV CD4 ต่ำ/ภาวะเม็ดเลือดขาวต่ำ</li>
+<li>ปลูกถ่ายอวัยวะ/สเต็มเซลล์</li>
+<li>ผู้สูงอายุ/ทุพโภชนาการรุนแรง/โรคเรื้อรังซับซ้อน</li>
+</ul>
+<i>ถ้าเป็นกลุ่มนี้และใช้ ID จะตั้งให้เป็น <b>1 จุด/ครั้ง</b></i>
+</div>
+</div>
+</div>
+<div class="row"><button id="planBtn">สร้างตารางนัด</button><button class="ghost" id="resetBtn">ล้าง</button></div>
+<div class="out" id="planOut"></div>
+</section>
+<section class="card"><h2>คำนวณ RIG (ERIG/HRIG)</h2>
+<div class="row">
+<label>น้ำหนัก (kg): <input id="wt" min="1" step="0.1" type="number" value="60"/></label>
+<label>ชนิด: <select id="rigType"><option value="ERIG">ERIG (40 IU/kg)</option><option value="HRIG">HRIG (20 IU/kg)</option></select></label>
+<label>ผลิตภัณฑ์: <select id="rigProd"></select></label>
+</div>
+<div class="row"><button id="rigBtn">คำนวณ</button></div>
+<div class="out" id="rigOut"></div>
+<p class="note">ฉีดรอบแผลให้มากที่สุด ที่เหลือ IM ไกลตำแหน่งวัคซีน • ให้ภายใน 7 วันแรกหลังเริ่มวัคซีน</p>
+</section>
+<section class="card">
+<h2>แนวทางการรักษา</h2>
+<ul>
+<li><a href="./แนวทางการฉีดวัคซีนพิษสุนัขบ้า_รพน.pdf" rel="noopener" target="_blank">แนวทางการฉีดวัคซีนพิษสุนัขบ้า (รพน.)</a></li>
+<li><a href="./แนวทางการดูแลรักษาผู้สัมผัส_โรคพิษสุนัขบ้า_2561.pdf" rel="noopener" target="_blank">แนวทางการดูแลรักษาผู้สัมผัส โรคพิษสุนัขบ้า (สถานเสาวภา พ.ศ.2561)</a></li>
+</ul>
+</section>
+<section class="card"><h2>ข้อมูลวัคซีน (เรียงมีในไทยก่อน)</h2><div class="grid" id="products"></div></section>
+<section class="card"><h2>FAQ</h2><ul id="faq"></ul></section>
+</main>
+<footer><p class="credit">© 2025 ภก.กันตพงศ์ วงศ์เอนกเกษม</p></footer>
+<script src="app.js"></script>
+<div class="modal" id="catModal">
+<div class="box">
+<button class="close" data-close="#catModal">ปิด</button>
+<h3>คำอธิบาย Category</h3>
+<p><b>Category I</b>: สัมผัสผิวหนังปกติ → ล้างแผล</p>
+<p><b>Category II</b>: ผิวถลอก/ข่วนตื้น → วัคซีน (ไม่ RIG)</p>
+<p><b>Category III</b>: แผลลึก/เลือดออก/เลียเยื่อเมือก/กัดบริเวณเสี่ยง → วัคซีน + พิจารณา RIG</p>
+</div>
+</div>
+<div class="modal" id="hiRiskModal">
+<div class="box">
+<button class="close" data-close="#hiRiskModal">ปิด</button>
+<h3>เสี่ยงสูง/ภูมิคุ้มกันบกพร่อง คือใครบ้าง</h3>
+<ul>
+<li>ยากดภูมิ/สเตียรอยด์ขนาดสูง/เคมีบำบัด</li>
+<li>HIV ที่ CD4 ต่ำ, ภาวะเม็ดเลือดขาวต่ำ</li>
+<li>ปลูกถ่ายอวัยวะ/สเต็มเซลล์</li>
+<li>ผู้สูงอายุ/ทุพโภชนาการ/โรคเรื้อรังซับซ้อน</li>
+</ul>
+<p><b>ในระบบ:</b> ถ้าเลือกตัวนี้ → ID จะเป็น 1 จุด/ครั้ง</p>
+</div>
+</div>
+<script>
+(function(){
+  const $=s=>document.querySelector(s);
+  const catHelp=$('#catHelp'),catInfoBtn=$('#catInfoBtn');
+  if(catInfoBtn&&catHelp){catInfoBtn.addEventListener('click',()=>catHelp.classList.toggle('show'));}
+  const hiBtn=$('#hiRiskInfoBtn'),hiHelp=$('#hiRiskHelp'),hiModal=$('#hiRiskModal');
+  if(hiBtn&&hiHelp){hiBtn.addEventListener('click',()=>hiHelp.classList.toggle('show'));}
+  const closeBtns=document.querySelectorAll('.modal .close');
+  closeBtns.forEach(b=>b.addEventListener('click',()=>{const id=b.getAttribute('data-close');if(id){const m=document.querySelector(id);if(m)m.classList.remove('show');}}));
+  // Recommendation snippet
+  const expoCat=$('#expoCat'),prevSel=$('#prev'),planOut=$('#planOut');const rec=document.createElement('div');rec.className='out';rec.style.marginTop='6px';
+  function updateRec(){
+    if(!expoCat)return;let msg='';
+    if(expoCat.value==='I') msg='Category I → ล้างแผล • ปกติไม่ต้องวัคซีน/RIG';
+    if(expoCat.value==='II') msg='Category II → ให้วัคซีนตามสูตร (ไม่ต้อง RIG)';
+    if(expoCat.value==='III'){ msg=(prevSel&&prevSel.value==='>=3')?'Category III → วัคซีนกระตุ้น 0,3; โดยทั่วไปไม่ต้อง RIG':'Category III → วัคซีน + พิจารณา RIG (ERIG 40 IU/kg หรือ HRIG 20 IU/kg)';}
+    if(planOut){rec.innerHTML='<b>คำแนะนำตาม Category:</b> '+msg; if(!rec.isConnected) planOut.parentNode.insertBefore(rec, planOut);}
+  }
+  if(expoCat) expoCat.addEventListener('change',updateRec);
+  if(prevSel) prevSel.addEventListener('change',updateRec);
+  updateRec();
+})();
+</script>
+<script>(function(){const $=s=>document.querySelector(s);
+const catBtn=$('#catExplainBtn'),catBox=$('#catExplain'); if(catBtn&&catBox){catBtn.addEventListener('click',()=>catBox.classList.toggle('show'));}
+const riskBtn=$('#riskExplainBtn'),riskBox=$('#riskExplain'); if(riskBtn&&riskBox){riskBtn.addEventListener('click',()=>riskBox.classList.toggle('show'));}
+const advice=$('#catAdvice'),expoCat=$('#expoCat'); const prevSel=document.getElementById('prev');
+function updateAdvice(){if(!advice||!expoCat)return; let t=''; if(expoCat.value==='I'){t='Category I → ล้างแผลด้วยสบู่และน้ำไหล ≥15 นาที • ปกติไม่ต้องวัคซีน/RIG';}
+if(expoCat.value==='II'){t='Category II → ให้วัคซีนตามสูตรที่เลือก (ปกติไม่ต้อง RIG)';}
+if(expoCat.value==='III'){t=(prevSel&&prevSel.value==='>=3')?'Category III → วัคซีนกระตุ้น Day 0,3; โดยทั่วไปไม่ต้อง RIG':'Category III → วัคซีน + พิจารณา RIG (ERIG 40 IU/kg หรือ HRIG 20 IU/kg)';}
+if(t){advice.innerHTML='<b>คำแนะนำ:</b> '+t; advice.classList.add('show');}} if(expoCat)expoCat.addEventListener('change',updateAdvice); if(prevSel)prevSel.addEventListener('change',updateAdvice); updateAdvice();})();</script><script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}</script></body></html>
